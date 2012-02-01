@@ -42,6 +42,7 @@ function drawScene() {
 (function() {
 	//Initialize Glut
 	Glut.init();
+	Glut.idleFunc(function(){});
 	Glut.initDisplayMode(Glut.DOUBLE | Glut.RGB | Glut.DEPTH);
 	Glut.initWindowSize(400, 400); //Set the window size
 	//Create the window
@@ -56,13 +57,14 @@ function drawScene() {
 		Gl.loadIdentity();
 		Glu.perspective(45.0, w / h, 1.0, 200.0);
 	});
-	//Set timeout callback
-	Glut.timerFunc(25, function() {
+	//Per-frame callback
+	var updateFrame = function() {
 		angle += 2.0;
 		if (angle > 360) angle -= 360;
 		Glut.postRedisplay();
-		Glut.timerFunc(25, arguments.callee, 0);
-	}, 0);
+		setTimeout(updateFrame, 25);
+		Glut.checkLoop();
+	};
 	//Start the main loop.
-	Glut.mainLoop();
+	updateFrame();
 })();
