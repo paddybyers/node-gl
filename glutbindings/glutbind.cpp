@@ -2,8 +2,6 @@
 
 #include "glutbind.h"
 
-int* pargc_;
-char** argv_;
 map<const char*, void*> font_;
 Persistent<Context> GlutFactory::glut_persistent_context;
     
@@ -1322,7 +1320,9 @@ Handle<Value> GetGLUT_CURSOR_FULL_CROSSHAIR(Local<String> property,
 
 
 Handle<Value> GLUTInitCallback(const Arguments& args) {
-  glutInit(( int* ) pargc_, ( char** ) argv_);
+  int argc = 0;
+  char* argv = 0;
+  glutInit(&argc, &argv);
   return v8::Undefined();
 }
 
@@ -3646,10 +3646,7 @@ Handle<Value> GLUTGameModeGetCallback(const Arguments& args) {
 
 
 
-Handle<ObjectTemplate> GlutFactory::createGlut(int* pargc, char** argv) {
-      pargc_ = pargc;
-      argv_  = argv;
-      
+Handle<ObjectTemplate> GlutFactory::createGlut() {
       HandleScope handle_scope;
 
       Handle<ObjectTemplate> Glut = ObjectTemplate::New();

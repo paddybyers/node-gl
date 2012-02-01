@@ -39,7 +39,7 @@ using namespace v8;
 
 class GlutFactory {
 public:
-	static Handle<ObjectTemplate> createGlut(int* pargc, char** argv);
+	static Handle<ObjectTemplate> createGlut();
 	static Persistent<Context> glut_persistent_context;
 };
 
