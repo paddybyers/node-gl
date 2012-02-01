@@ -29,7 +29,9 @@ You can run some example JS code
 Limitations
 ---------
 
-NOTE that so far this simply integrates GLUT, so once the main loop has been entered, the node event loop no longer services events. Fixing this is the first thing to do.
+NOTE that so far this simply integrates GLUT, so if `Glut.mainLoop()` is called, the Glut loop is entered and the node event loop no longer services events. Instead the application can call `Glut.checkLoop()` which will just execute the body of the Glut event loop once, and will then return to the node event loop. Note also that there needs to be a call to `Glut.idleFunc(function(){})` so that `checkLoop()` returns when the event loop is idle.
+
+To be more node-friendly, this API should really be turned into an EventEmitter.
 
 Example
 ---------
@@ -80,6 +82,7 @@ Its the same example of a rotating Icosahedron with some lighting and colours, u
     (function() {
         //Initialize Glut
         Glut.Init();
+        Glut.idleFunc(function(){});
         Glut.InitDisplayMode(Glut.DOUBLE | Glut.RGB | Glut.DEPTH);
         Glut.InitWindowSize(400, 400); //Set the window size
         //Create the window
@@ -93,15 +96,16 @@ Its the same example of a rotating Icosahedron with some lighting and colours, u
             for (var i in gl) Gl[i].apply(this, gl[i]);
             Glu.Perspective(45.0, w / h, 1.0, 200.0);
         });
-        //Set timeout callback
-        Glut.TimerFunc(25, function() {
+        //Per-frame callback
+        var updateFrame = function() {
             angle += 2.0;
             if (angle > 360) angle -= 360;
-            Glut.PostRedisplay();
-            Glut.TimerFunc(25, arguments.callee, 0);
-        }, 0);
+            Glut.postRedisplay();
+            setTimeout(updateFrame, 25);
+            Glut.checkLoop();
+        };
         //Start the main loop.
-        Glut.MainLoop();
+        updateFrame();
     })();
     
 
