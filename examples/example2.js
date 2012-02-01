@@ -45,7 +45,7 @@ function drawScene() {
 	Glut.initDisplayMode(Glut.DOUBLE | Glut.RGB | Glut.DEPTH);
 	Glut.initWindowSize(400, 400); //Set the window size
 	//Create the window
-	Glut.createWindow("OpenGL on V8 baby!");
+	Glut.createWindow("OpenGL on node baby!");
 	initRendering();
 	//Set drawing callback
 	Glut.displayFunc(drawScene);
