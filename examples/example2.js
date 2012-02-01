@@ -4,6 +4,11 @@ Array.prototype.each = function(f) {
 	for ( var i = 0; i < len; i++) f(this[i]);
 };
 
+//load module
+var Gl = require('node-gl').Gl;
+var Glu = require('node-gl').Glu;
+var Glut = require('node-gl').Glut;
+
 //Initializes 3D rendering
 function initRendering() {
 	"DEPTH_TEST COLOR_MATERIAL LIGHTING LIGHT0 NORMALIZE COLOR_MATERIAL"
