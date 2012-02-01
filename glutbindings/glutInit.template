@@ -1,5 +1,7 @@
 
 Handle<Value> GLUTInitCallback(const Arguments& args) {
-  glutInit(( int* ) pargc_, ( char** ) argv_);
+  int argc = 0;
+  char* argv = 0;
+  glutInit(&argc, &argv);
   return v8::Undefined();
 }
