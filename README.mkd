@@ -13,6 +13,8 @@ These notes will be expanded as the work develops.
 
 A  contributions are welcomed.
 
+![example2.js - GL on node](https://github.com/downloads/paddybyers/node-gl/node-gl.png)
+
 Download
 ---------
 
