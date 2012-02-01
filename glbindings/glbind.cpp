@@ -4,7 +4,7 @@
 #if defined(V8_GL_USE_GLEW)
 #include "GL/glew.h"
 #elif defined(__APPLE__)
-#include <OpenGL/OpenGL.h>
+#include <OpenGL/gl.h>
 #else
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>

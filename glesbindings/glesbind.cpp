@@ -5,7 +5,7 @@
 #include "GL/glew.h"
 #include "glew_desktop_shim.h"
 #elif defined(__APPLE__)
-#include <OpenGL/OpenGL.h>
+#include <OpenGL/gl.h>
 #include "gles_desktop_shim.h"
 #else
 #define GL_GLEXT_PROTOTYPES
@@ -238,7 +238,7 @@ Handle<Value> GLESglVertexAttribPointerCallback(const Arguments& args) {
 		  (GLenum)type,
 		  (normalized?GL_TRUE:GL_FALSE),
 		  (GLsizei)stride,
-		  ((const void*)ans)+offset);
+		  ((const char*)ans)+offset);
 
   //should I delete[] ans?
 
